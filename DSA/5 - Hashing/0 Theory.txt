@@ -1,0 +1,189 @@
+Hashing is mainly done for dictionaries.
+For unique values, inserting again will overwrite previous oe
+
+Search , Insert & Delete take O(1) time.
+
+Hashing is not used when :
+	Finding closest value
+	Sorted Data
+	Prefix searching
+
+Applications :
+	Dictionaries
+	Database Indexing
+	Cyptography
+	Caches
+	Symbol tables in Compilers/Interpreters
+	Getting data from database.
+
+Hash function : Converts big data into smaller keys
+How does hash function works :
+	Should always map a larger key into same small key
+	Should generate values from 0 to m-1
+	Should be fast, O(1) for integers and O(len) for strings
+	Should uniformly distribute large keys into Hash Table slots
+
+Examples :
+1. h(large_key) = large_key % m;	m is chosen prime number closest to size
+2. For strings, weighted sum
+   str[]="abcd"
+   str[0]*x^0 +str[1]*x^1 + str[2]*x^2 + str[3]*x^3
+3. Universal hashing
+
+
+Chaining
+struct Hashh
+{
+   int bucket;
+   list<int> *table;
+   Hashh(int x)
+   {
+      bucket=x;
+      table= new list<int>[x];
+   }
+   void insert(int z)
+   {
+      int i=z%bucket;
+      table[i].push_back(z);
+   }
+   void remove(int z)
+   {
+      int i=z%bucket;
+      table[i].remove(z);
+   }
+   bool search(int z)
+   {
+      int i=z%bucket;
+      for(auto n:table[i])
+         if(n==z)
+            return true;
+      else return false;
+   }
+};
+int main()
+{
+	Hashh ht(5);
+	ht.insert(12);
+	return 0;
+}
+
+
+Open Addressing
+	Single Array
+	Number of slots in Hash Table >= Number of keys to be inserted
+	Cache Friendly
+TYPES : Linear probing, Quadratic probing, Double Hashing
+
+LINEAR PROBING -> Linearly Search for next empty slot when there is collision
+	While searching we stop when there is empty slot / Key found / Traversed thorugh the whole table
+
+	Clustering occurs more 
+	h(key) = key % m;
+	Hash Function : hash (Key,i) =  ( h (key + i) ) % m;	// on ith collision
+
+For quadratic -> hash(key,i) = ( h ( key + i^2 ) ) % 7;		
+For Double Hashing -> hash(key,i) = ( h1(Key) + i * h2(key) ) % m;
+
+DOUBLE HASHING :
+	If h2(key) is relatively prime to h1(key) then it always find us some free slot
+	It distributes keys more uniformly then linear and quadratic
+	No clustering
+
+struct Hash_T
+{
+   int *arr;
+   int cap,size;
+   Hash_T(int x)
+   {
+      cap=x;
+      size=0;
+      for(int i=0;i<cap,;i++)
+         arr[i]=-1;
+   }
+   int Hash_fn(int z)
+   {
+      return z%cap;
+   }
+   bool insert(int y)
+   {
+      int i=Hash_fn(y);
+      while(arr[i]!=-1 && arr[i]!=y && arr[i]!=-2)
+         i=(i+1)%cap;count++;
+      if(arr[i]=y)
+         return false;
+      else
+      {   
+         arr[i]=y;size++;
+         return true;
+      }
+   }
+   bool search(int y)
+   {
+      int i=Hash_fn(y);
+      int i=h;
+      while(arr[i]!=-1)
+      {
+         if(arr[i]==y)
+            return true;
+         i=(i+1)%cap;
+         if(i==h)
+            return false;
+      }
+      return false;
+   }
+   bool deletee(int y)
+   {
+      int i=Hash_fn(y);
+      int h=i;
+      while(arr[i]!=-1)
+      {
+         if(arr[i]==y)
+         {
+            arr[i]=-2;
+            size--;
+            return true;
+         }
+         i=(i+1)%cap;
+         if(i==h)
+            return false;
+      }
+      return false;
+   }
+};
+
+_____________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

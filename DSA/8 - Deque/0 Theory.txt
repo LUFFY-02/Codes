@@ -1,0 +1,39 @@
+DEQUE :
+
+Insert and delete items from both front and rear
+
+pop_front()
+pop_back()
+isFull()
+empty()
+size()
+push_front(x)
+push_reat(x)
+front(x)
+back(x)
+dq.begin();
+
+auto it=dq.begin();
+dq.insert(it,20);
+inserts at index 1 / position 2
+
+
+
+APPLICATION :
+1. A deque can be used as both stack and queue
+2. Maintaining History of actions.
+3. A steal process scheduling algorithm.
+4. Implementing a priority queue wuth two types of priorities.
+5. Maximum/Minimum of all subarrays of size k in an array.
+
+
+
+
+
+
+
+
+
+
+
+

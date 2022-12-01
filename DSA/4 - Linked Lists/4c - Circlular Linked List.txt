@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll= long long;
+void io_file(){
+   #ifndef ONLINE_JUDGE 
+      freopen("Input.txt","r",stdin);
+      freopen("Outputt.txt","w",stdout);
+   #endif
+}
+struct Node
+{
+   int data;
+   Node *next;
+   Node(int x)
+   {
+      data=x;
+      next=NULL;
+   }
+};
+void print_list(Node *head)
+{
+   Node *curr=head->next;
+   cout<<head->data<<" ";
+   while(curr->next!=head->next)
+   {
+      cout<<curr->data<<" ";
+      curr=curr->next;
+   }
+}
+Node *insert_begin(Node *head,int val)
+{
+   Node *temp=new Node(val);
+   if(head==NULL)
+   {
+      temp->next=temp;
+      return temp;
+   }
+   Node *curr=head;
+   while(curr->next!=head)
+      curr=curr->next;
+   curr->next=temp;
+   temp->next=head;
+   return temp;
+}
+Node *insert_begin_efficient(Node *head,int val)
+{
+   Node *temp=new Node(val);
+   if(head==NULL)
+   {
+      temp->next=temp;
+      return temp;
+   }
+   temp->next=head->next;
+   head->next=temp;
+   swap(head->data,temp->data);
+   return head;
+}
+Node *insert_end(Node *head,int val)
+{
+   head=insert_begin_efficient(head,val);
+   Node *temp=head->next;
+   return temp;
+}
+Node *delete_head(Node *head)
+{
+   if(head==NULL || head->next==NULL)
+      return NULL;
+   Node *curr=head->next;
+   swap(head->data,curr->data);
+   head->next=curr->next;
+   delete curr;
+   return head;
+}
+Node *delete_k(Node *head,int pos)
+{
+   if(head==NULL) return NULL;
+   if(pos==1)
+      return delete_head(head);
+   Node *curr=head;
+   for(int i=1;i<pos-1;i++)
+      curr=curr->next;
+   Node *temp=curr->next;
+   curr->next=temp->next;
+   delete temp;
+   return head;
+}
+signed main()
+{
+   io_file();
+   Node *head=new Node(10);
+   Node *temp1=new Node(20);
+   Node *temp2=new Node(30);
+   Node *temp3=new Node(40);
+   head->next=temp1;
+   temp1->next=temp2;
+   temp2->next=temp3;
+   temp3->next=head;
+   head=insert_begin_efficient(head,5);
+   head=insert_end(head,50);
+   head=delete_head(head);
+   head=delete_k(head,7);
+   print_list(head);
+}

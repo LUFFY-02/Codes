@@ -1,0 +1,36 @@
+To find max element of array
+	*max_element(a,a+size);
+
+To find min element of array
+	*min_element(a,a+size);
+
+in array : binary_search(a,a+size,value) returns 1 if found and 0 if not found
+in vector : binary_search(v.begin(),b.end(),value);
+
+	upper_bound(arr,arr+size,value)-arr;
+	upper_bound(v.begin(),v.end(),value)-v.begin();
+
+	transform(arr1,arr1+n,arr2,result_array, plus<int>);
+	transform(arr1,arr1+n,arr1,increment)
+	transform(input_start,input_end,output_start,binary_op)
+
+	count(arr,arr+n,num);
+	count(v.begin(),v.end(),num);
+	count(str.begin(),str.end(),num);
+
+	replace(arr,arr+n,prev_val,new_val);
+
+	rotate(iterator start, iterator middle, iterator end);
+10, 20, 30, 40, 50
+30, 40, 50, 10, 20
+
+	find(arr,arr+n,value);
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+PAIRS
+
+under main
+Initialization :   pair<datatype,datatype>pair_name;
+To print 1st value of pair  ->  pair_name.first;  && pair_name.second for second value
+
+We can also compare pairs by p1==p2 comapares both 1st and 2nd value of each pair
+			     p1>p2 etc compares only the first value of pair
+

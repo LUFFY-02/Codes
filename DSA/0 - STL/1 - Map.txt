@@ -1,0 +1,69 @@
+SIMPLE map stores values in sorted order
+whereas unordered is used for unsorted order
+
+DECLARATION :
+	map<data_type, data_type> name;
+INSERT : 
+	name.insert({value,value});
+     or,
+	name[value]=value;
+PRINT :
+	for(auto it=m.begin();it!=m.end();it++)
+      		cout<<(*it).first<<" "<<(*it).second<<endl;
+	for(auto &pr : m)
+		cout<<pr.first<<" "<<pr.second;
+FIND :
+	auto it=m.find(3);
+	if value is obtained (*it).first<<" "....
+	if not there then it is = to m.end()
+
+ERASE :
+	m.erase(value_key);
+
+
+TIME COMPLEXITIES :
+	insert or m[1]  -> O(log(n))
+	erase 		-> O(log(n))
+
+
+
+
+PROBLEM :::::
+	given strings and we have to print unique lexiographical strings with the frequency
+
+
+   map<string,int>m;
+   int n;cin>>n;
+   for(int i=0;i<n;i++)
+   {
+      string k;cin>>k;
+      m[k]++;
+   }
+   for(auto it : m)
+      cout<<it.first<<" "<<it.second<<endl;
+
+
+
+Unordered map :::::::::::::
+
+unordered_map<datatype,datatype) name;
+
+
+maps uses trees for inbuilt implementation
+unordered maps used hash tables
+
+time complexity
+O(1) average time complexity - unordered
+O(logn) - map
+
+cannot use pairs or advanced data types
+bcz we use hash values here :)
+maps does compare so it can be used there
+
+
+
+MULTIMAP :::::::
+
+multimap<datatype,datatype) name;
+
+multimap 

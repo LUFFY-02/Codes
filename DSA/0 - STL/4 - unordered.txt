@@ -1,0 +1,66 @@
+unordered_set<int>s;
+s.insert(10);
+s.inser(5);
+for(int x:s)
+	cout<<x<<" "; // compiler dependent , no order is maintained
+
+s.clear(); // clears set, clears before using it for new test_case
+
+s.find(5) returns iterator to the value
+if(s.find(5) == s.end()
+	cout<<"FALSE";
+else
+	cout<<"FOUND"<<(*it);
+
+s.erase(5);
+s.erase(s.begin(),s.end());
+
+begin,end		-> O(1)
+insert,erase(val)
+erase(it),find()
+count()			-> O(1) on average
+
+______________________________________________________________________________________
+
+unordered_map	-> used to store key,value tree
+		   uses hashing
+		   no order of keys
+
+unordered_map <string,int> m
+m["ohk"]=2;		// m[key]=value;
+m.insert({"course",2});
+for(auto x:m)
+	cout<<x.first<<" "<<x.second();
+
+auto it=m.find("idle");
+if(it != m.end())
+	cout<<"FOUND  "<<(*it).first<<" "<<it->second;
+else
+	cout<<"NOT FOUND";
+
+
+_____________________________________________
+unordered_set<int> s(arr,arr+n);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

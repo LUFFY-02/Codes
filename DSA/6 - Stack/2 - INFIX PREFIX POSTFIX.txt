@@ -1,0 +1,164 @@
+INFIX -> POSTFIX
+
+1. Create an empty stack, st
+2. Do following for every characer x from left to right
+3. If x is :
+	a) OPERAND : Output it
+	b) Left Parenthesis : Push to st
+	c) Right Parenthesis : Pop from st until left Parentheis
+	   is found. Output the popped operators.
+	d) Operator : If st is empty, push x to st.
+		      Else compare with st top. 
+		i) Higher precedence (than st top), push to st.
+		ii) Lower precedence, pop st top and output until
+		    a higher precedence operator is found. Then push
+		    s to st.
+		iii) Equal precedence, use associativity.
+4. Pop and output everything from st.
+
+
+
+int precedence(char x)
+{
+   if(x=='+' || x=='-')
+      return 1;
+   if(x=='*' || x=='/')
+      return 2;
+   if(x=='^')
+      return 3;
+   else
+      return -1;
+}
+void infix_to_postfix(string s)
+{
+   stack <char> si;
+   string res;
+   for(int i=0;i<s.size();i++)
+   {
+      if(   (s[i]>='a' && s[i]<='z' ) || (s[i]>='A' && s[i]<='Z')  )
+         res+=s[i];
+      else if( s[i]=='(')
+      {
+         si.push(s[i]);
+      }
+      else if(s[i]==')')
+      {
+         while(si.top()!='(')
+         {
+            res+=si.top();
+            si.pop();
+         }
+         si.pop();
+      }
+      else
+      {
+         while(!si.empty() && precedence(s[i]) <= precedence(si.top())) 
+         {
+            res+=si.top();
+            si.pop();
+         }
+         si.push(s[i]);
+      }
+   }
+   while(!si.empty())
+   {
+      res+=si.top();
+      si.pop();
+   }
+   cout<<res<<endl;
+}
+
+____________________________________________________________-
+
+POSTFIX TO INFIX : 
+
+bool isOperand(char x)
+{
+   return (x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z');
+}
+string getInfix(string exp)
+{
+    stack<string> s;
+    for (int i=0; exp[i]!='\0'; i++)
+    {
+        if (isOperand(exp[i]))
+        {
+           string op(1, exp[i]);
+           s.push(op);
+        }
+        else
+        {
+            string op1 = s.top();
+            s.pop();
+            string op2 = s.top();
+            s.pop();
+            s.push("(" + op2 + exp[i] + op1 + ")");
+        }
+    }
+    return s.top();
+}
+
+____________________________________________________________
+
+INFIX TO PREFIX :
+
+1. Create an empty stack, st.
+2. Create an empty string, prefix.
+3. Do following for every character c from right to left.
+4. If c is :
+	a) Operand : push it to prefix.
+	b) Right parenthesis : Push to st.
+	c) Left parenthesis : pop from st until right parenthesis found.
+	   Append the popped character to prefix.
+	d) Operator : If st is empty, push c to st.
+		      Else compare with st top.
+		 i) Higher Precedence ( than st top) : push c to st.
+		ii) Lower Precedence : Pop st top and append the 
+		    popped item to prefix until a higher precedence
+		    operator is found ( or st becomes empty ). Push c to st.
+	       iii) Equal Precedence : Use associativity.
+5. Pop everthing from st and append to prefix.
+6. Return revere of prefix.
+
+Reverse string infix then swap parenthese ( and )
+Now call for infix to postfix and save it in prefix
+Now reverse postfix again.
+TADA ANSWER SENORITA............
+
+______________________________________________________________________________________
+
+PREFIX TO INFIX :
+
+bool isOperator(char x) {
+  switch (x) {
+  case '+':
+  case '-':
+  case '/':
+  case '*':
+  case '^':
+  case '%':
+    return true;
+  }
+  return false;
+}
+
+string preToInfix(string pre_exp) 
+{
+   stack<string> s;
+   int length = pre_exp.size();
+   for (int i = length - 1; i >= 0; i--) 
+   {
+      if (isOperator(pre_exp[i])) 
+      {
+         string op1 = s.top();   s.pop();
+         string op2 = s.top();   s.pop();
+         string temp = "(" + op1 + pre_exp[i] + op2 + ")";
+         s.push(temp);
+      }
+      else 
+      {
+         s.push(string(1, pre_exp[i]));
+      }
+   }
+   return s.top();
+}

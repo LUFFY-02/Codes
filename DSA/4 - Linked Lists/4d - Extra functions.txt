@@ -1,0 +1,110 @@
+Operations on singly linked list
+
+					Insert in sorted linked list
+Node *insert(Node *head,int x)
+{
+   Node *temp=new Node(x);
+   if(head==NULL)
+      return temp;
+   if(x<head->data)
+   {
+      temp->next=head;
+      return temp;
+   }
+   Node *curr=head->next;
+   while(curr->next!=NULL && curr->data<x && curr->next->data<x)
+      curr=curr->next;
+   temp->next=curr->next;
+   curr->next=temp;
+   return head;
+}	
+					Finding Middle element in a linked list
+void middle(Node *head)
+{
+   Node *slow=head,*fast=head;
+   while(fast!=NULL && fast->next!=NULL)
+   {
+      fast=fast->next->next;slow=slow->next;
+   }
+   cout<<slow->data;
+}
+					Finding nth node from the end
+void nth_node(Node *head,int x)
+{
+   Node *first=head,*second=head;
+   for(int i=1;i<x;i++)
+      second=second->next;
+   while(second->next!=NULL)
+   {
+      second=second->next;
+      first=first->next;
+   }
+   cout<<endl;
+   cout<<first->data;
+}
+					Reversing a linked list
+Node *reverse_iterative(Node *head)
+{
+   Node *prev=NULL;
+   Node *curr=head;
+   while(curr!=NULL)
+   {  
+      Node *next=curr->next;
+      curr->next=prev;
+      prev=curr;
+      curr=next;
+   }
+   return prev;
+}
+Node *reverse_recursive(Node *head)
+{
+   if(head==NULL) {return NULL;}
+   if(head->next==NULL) {return head;}
+   Node *rev_head=reverse_rec(head->next);
+   Node *rev_tail=head->next;
+   head->next=NULL;
+   rev_tail->next=head;
+   return rev_head;
+}
+					Remove duplicates in a linked list
+Node *remove_duplicates(Node *head)
+{
+   if(head==NULL) return NULL;
+   if(head->next==NULL) return head;
+   Node *curr=head;
+   while(curr->next!=NULL)
+   {
+      if(curr->data==curr->next->data)
+      {
+         Node *temp=curr->next;
+         curr->next=temp->next;
+         temp->next=NULL;
+         delete temp;
+      }
+      else
+         curr=curr->next; 
+   }
+   return head;
+}
+					Reverse a linked list as a batch
+Node *reverse_batch(Node *head,int k)
+{
+   Node *curr=head;
+   Node *prev=NULL;
+   Node *next=NULL;
+   int c=0;
+   while(c<k && curr!=NULL)
+   {
+      next=curr->next;
+      curr->next=prev;
+      prev=curr;
+      curr=next;
+      c++;
+   }
+   if(curr!=NULL)
+   {
+      Node *rev_head=reverse_batch(next,k);
+      head->next=rev_head;
+   }
+   return prev;
+}

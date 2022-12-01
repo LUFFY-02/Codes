@@ -1,0 +1,106 @@
+Queue :
+	First in first out
+		10 20 35 40 50 
+enqueue(x) -> adds x at rear
+dequeue()  -> removes front element
+geFront()  -> provides first element
+getRear()  -> provides last element
+size()     -> returns size of queue
+isEmpty()  -> true,false
+
+Applications :
+1. Single resource and multiple conusmers. Ticket system.
+2. Synchronization between slow and fast devices.
+3. In OS (Semaphore, FCFS, Scheduling, buffers for devices like keyboard).
+4. In CN (Routers/Switches and Mail queues).
+5. Variations : Deque, Prioriy queue and doubly ended priority queue.
+
+struct QUEUE
+{
+   int cap,sizee;
+   int *arr;
+   QUEUE(int x)
+   {
+      cap=x;sizee=0;arr= new int[x];
+   }
+   void enque(int y)
+   {
+      if(isfull())
+         return;
+      arr[sizee]=y;
+      sizee++;
+   }
+   void deque()
+   {
+      if(isempty())
+         return;
+      for(int i=0;i<sizee-1;i++)
+         arr[i]=arr[i+1];
+      sizee--;
+   }
+   int getfront()
+   {
+      if(isempty())
+         return -1;
+      return arr[0];
+   }
+   int getrear()
+   {
+      if(isempty())
+         return -1;
+      return arr[sizee-1];
+   }
+   bool isfull()
+   {
+      return (sizee==cap) ? true:false;
+   }
+   bool isempty()
+   {
+      return (sizee==0)?true:false;
+   }
+   int size() 
+   {
+      return sizee;
+   }
+};
+________________________________________________________________________
+
+QUEUE in STL :
+
+queue<int> q;
+q.push(10);
+cout<<q.front()<<q.back();
+q.pop();
+q.size();
+q.empty();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

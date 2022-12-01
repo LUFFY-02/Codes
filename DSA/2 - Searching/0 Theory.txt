@@ -1,0 +1,31 @@
+Time Complexity of Binary Search is O(logn)
+
+
+BINARY SEARCH iterative code
+
+int binary(int a[],int n,int val)
+{
+   int low=0,high=n-1;
+   while(low<=high)
+   {
+      int mid=(low+high)/2;
+      if(a[mid]==val) return mid;
+      if(a[mid]>val) high=mid-1;
+      else low=mid+1;
+   }
+   return -1;
+}
+
+------------------------------------------------------------------
+
+BINARY SEARCH recursive code
+
+
+int binary(int a[],int n,int low,int high,int val)
+{
+   if(low>high) return -1;
+   int mid=(low+high)/2;
+   if(a[mid]==val) return mid;
+   else if(a[mid]>val) return binary(a,n,low,mid-1,val);
+   else return binary(a,n,mid+1,high,val);
+}

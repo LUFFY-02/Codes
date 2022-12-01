@@ -1,0 +1,315 @@
+TREE DATA STRUCTURE :
+
+Tree is a non-linear data structure
+It stores data in hierarichy form.
+	There are nodes
+	Root Node is at top
+	Leaf Node is at bottom
+	Child Node are nodes which are just below a node 
+	Parent Node are nodes which are just above a node are parent of that node
+	Subtree are tree inside main tree
+	Descendants of a node are all the nodes that lie in the subtree with this particular node as root.
+	Ancestors 
+	Degree of a node is number of children it have.
+		Leaf 0 degree
+	Nodes which are not leaf nodes are cld internal nodes.
+
+
+APPLICATIONS :
+1. To represent hierarchical data
+	Organization Structure
+	Folder Structure
+	XML/HTML Content
+	In OOP
+2. Binary Search trees
+3. Binary Heap
+4. B+ trees in DBMS
+5. Spanning and shortest path trees in computer networks.
+6. Parse tree, Expression Tree in compilers.
+
+TRIE, SUFFIX TREE, BINARY INDEX TREE, SEGMENT TREE
+
+_________________________________________________
+
+BINARY TREE :
+Every node has at most two children.
+struct Node
+{
+   int data;
+   Node *left;
+   Node *right;
+   Node(int x)
+   {
+      data=x;
+      left=NULL;
+      right=NULL;
+   }
+};
+___________
+
+TREE TRAVERSAL :
+1. Breadth First ( Or level order)  : Level wise
+2. Depth First
+	Inorder		( Left Root Right )
+	Preorder	( Root Left Right )
+	Postorder	( Left Right Root )
+
+in df we go to one side, finish it and go to other side
+3 tasks -> Traverse Root
+	   Traverse Left subtree
+	   Traverse Right subtree
+
+void breadth_first(Node *root)
+{
+   if(root==NULL) return;
+   queue < Node*> q;
+   q.push(root);
+   while(q.empty()==0)
+   {
+      Node *curr=q.front();
+      q.pop();
+      cout<<curr->data<<" ";
+      if(curr->left!=NULL)
+         q.push(curr->left);
+      if(curr->right!=NULL)
+         q.push(curr->right);
+   }
+}
+
+void inorder(Node *root)
+{
+   if(root!=NULL)
+   {
+      inorder(root->left);
+      cout<<root->data<<" ";
+      inorder(root->right);
+   }
+}
+void preorder(Node *root)
+{
+   if(root!=NULL)
+   {
+      cout<<root->data<<" ";
+      preorder(root->left);
+      preorder(root->right);
+   }
+}
+void postorder(Node *root)
+{
+   if(root!=NULL)
+   {
+      postorder(root->left);
+      postorder(root->right);
+      cout<<root->data<<" ";
+   }
+}
+
+______________________
+
+HEIGHT OF BINAARY TREE : 
+int height(Node *root)
+{
+   if(root==NULL)
+      return 0;
+   return max(height(root->left),height(root->right))+1;
+}
+_______________________
+
+NODES AT K DISTANCE : 
+void k_dist_nodes(Node *root,int k)
+{
+   if(root==NULL)
+      return;
+   if(k==0)
+      cout<<root->data<<" ";
+   else
+   {
+      k_dist_nodes(root->left,k-1);
+      k_dist_nodes(root->right,k-1);
+   }
+}
+_________________________
+
+LEVELWISE TRAVERSAL ( SEPERATE LINES)
+
+void levelOrder(Node *root)
+{
+    if (root == NULL) return;
+    queue<Node *> q;
+    Node *curr;
+    q.push(root);
+    q.push(NULL);
+    while (q.size() > 1)
+    {
+        curr = q.front();
+        q.pop();
+        if (curr == NULL)
+        {
+           q.push(NULL);
+           cout << "\n";
+        }
+        else {
+            if(curr->left)
+               q.push(curr->left);
+            if(curr->right)
+               q.push(curr->right);
+            cout << curr->data << " ";
+        }
+    }
+________________________________________
+int max_of_tree(Node *root)
+{
+   if(root==NULL)
+      return INT_MIN;
+   return max(root->data,max(max_of_tree(root->left),max_of_tree(root->right)));
+}
+int size_tree(Node *root)
+{
+   if(root==NULL) return 0;
+   return max(size_tree(root->left),size_tree(root->right))+1;
+}
+___________________________________________
+
+LEFT VIEW :
+
+void left_view_iterative(Node *root)
+{
+   if(root==NULL)
+      return;
+   queue<Node *> q;
+   q.push(root);
+   while(q.empty()==false)
+   {
+      int count=q.size();
+      for(int i=0;i<count;i++)
+      {
+         Node *curr=q.front();
+         q.pop();
+         if(i==0) cout<<curr->data<<" ";
+         if(curr->left!=NULL)
+            q.push(curr->left);
+         if(curr->right!=NULL)
+            q.push(curr->right);
+      }
+   }
+}
+
+// recursive
+int maxLevel=0;
+void left_view_recursive(Node *root,int level)
+{
+   if(root==NULL) return;
+   if(maxLevel<level)
+   {
+      cout<<root->data<<" ";
+      maxLevel=level;
+   }
+   left_view_rec(root->left,level+1);
+   left_view_rec(root->right,level+1);
+}
+void left_view_rec_main(Node *root)
+{
+   left_view_rec(root,1);
+}
+
+________________________________________________________
+
+CHILDREN SUM PROPERTY :
+
+bool children_sum(Node *root)
+{
+   if(root==NULL) return true;
+   if(root->left==NULL && root->right==NULL)
+      return true;
+   int sum=0;
+   if(root->left!=NULL) {sum+=root->left->data;}
+   if(root->right!=NULL) {sum+=root->right->data;}
+   return (root->data==sum && children_sum(root->left) && children_sum(root->right));
+}
+
+_________________________________________________________
+
+BALANCED BINARY TREE :
+
+int isBalanced(Node *root)
+{
+   if(root==NULL) return 0;
+   int lh=isBalanced(root->left);
+   if(lh==-1) return -1;
+   int rh=isBalanced(root->right);
+   if(rh==-1) return -1;
+   if( abs(rh-lh) > 1) return -1;
+   else return max(lh,rh)+1;
+}
+_____________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

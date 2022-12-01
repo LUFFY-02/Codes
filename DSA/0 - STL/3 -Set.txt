@@ -1,0 +1,1 @@
+transform(s.begin(),s.end(),::tolower);  // string from uppercase to lowercase

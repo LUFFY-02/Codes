@@ -1,0 +1,65 @@
+Stack 
+	insertion -> push
+	remove    -> pop
+
+10
+
+20
+10
+
+30
+20
+10
+
+isEmpty() bool
+push(x)
+pop()
+peek returns top of the stack
+size() returns size
+
+struct Mystack
+{
+   int *arr;
+   int cap,top;
+   Mystack(int x)
+   {
+      cap=x;
+      arr=new int[cap];
+      top=-1;
+   }
+   void push(int y)
+   {
+      if(top==cap-1)
+         {cout<<"Already Full";return;}
+      top++;
+      arr[top]=y;
+   }
+   int size()
+   {
+      return (top+1);
+   }
+   int peek()
+   {
+      cout<<top<<" ";
+      return arr[top];
+   }
+   int pop()
+   {
+      if(top==-1)
+      {
+         cout<<"Already Empty";return INT_MIN;
+      }
+      int res=arr[top];
+      top--;
+      return res;
+   }
+   bool isEmpty()
+   {
+      if(top==-1)
+         return -1;
+      else
+         return 0;
+   }
+};
+
+

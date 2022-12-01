@@ -1,0 +1,308 @@
+******* THEORY PENDING FOR QUICK SORT & WHOLE HEAP SORT IS LEFT TOO *******
+
+
+
+SORTING :::::
+
+STL ->
+	sort(a,a+n);
+	sort(v.begin(),v.end());
+	
+	worst case and avg case O(n logn)
+	hybrid of quick heap and insertion sort
+
+	sort(a,a+10,greater<int>());
+		sorts in reverse order (desending order)
+
+Stable sort   : Bubble, Insertion, Merge 
+Unstable sort : Selection, Quick, Heap
+(order of equal element may change then it is unstable)
+------------------------------------------------------------------------------------------------------------------------------------
+
+BUBBLE SORT :-
+
+O(n^2) time
+we move largest element to last index then second largest and so on
+adjacent elements swapping
+
+void bubble(int a[],int n)
+{
+   for(int i=0;i<n-1;i++)
+      for(int j=0;j<n-i-1;j++)
+         if(a[j]>a[j+1])
+            swap(a[j],a[j+1]);
+   for(int i=0;i<n;i++)
+      cout<<a[i]<<" ";
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+SELECTION SORT :-
+
+O(n^2) time 
+less memory
+we find minimum element and put in in first position ans so on
+
+void selection(int a[],int n)
+{  
+   for(int j=0;j<n;j++)
+   {
+      for(int i=j+1;i<n;i++)
+      {
+         if(a[i]<a[j]) swap(a[i],a[j]);
+      }
+   }
+   for(int i=0;i<n;i++)
+      cout<<a[i]<<" ";
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+INSERTION SORT :-
+
+O(n^2) time in reverse sorted	O(n) Best Case in already sorted array
+Stable :)
+Used with small sized arrays
+We maintain a part sorted part and we add values one by one in the sorted
+array section.
+
+void insertion(int a[],int n)
+{
+   for(int i=1;i<n;i++)
+   {
+      int key=a[i];
+      int j=i-1;
+      while(j>=0 && a[j]>key)
+      {
+         a[j+1]=a[j];
+         j--;
+      }
+      a[j+1]=key;
+   }
+   for(int i=0;i<n;i++)
+      cout<<a[i]<<" ";
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+MERGE SORT :-
+
+O(nlogn) time	& O(n) auxillary space
+Divide and Conquer
+Stable :)
+We divide array into parts and merge them them using merge function
+				----
+			--- 		-
+		-- 	   -
+	   -	    -      
+		now merging
+		--	   -		-
+			---		-
+				----
+thats how merge sort works
+
+void merge(int arr[],int p,int q,int r)
+{
+   int n1=q-p+1;
+   int n2=r-q;
+   int L[n1], M[n2];
+   for(int i=0;i<n1;i++) L[i]=arr[p+i];
+   for(int j=0;j<n2;j++) M[j]=arr[q+1+j];
+   int i=0,j=0,k=p;
+   while(i<n1 && j<n2)
+   {
+      if(L[i]<=M[j])
+      {
+         arr[k]=L[i];
+         i++;
+      }
+      else
+      {
+         arr[k]=M[j];
+         j++;
+      }
+      k++;
+   }
+   while(i<n1)
+   {
+      arr[k]=L[i];
+      i++;
+      k++;
+   }
+   while(j<n2)
+   {
+      arr[k]=M[j];
+      j++;
+      k++;
+   }
+}
+void mergeSort(int arr[],int l,int r)
+{
+   if(l<r)
+   {
+      int m=l+(r-l)/2;
+      mergeSort(arr,l,m);
+      mergeSort(arr,m+1,r);
+      merge(arr,l,m,r);
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+QUICK SORT :-
+
+Divide & Conquer
+Wost Case time O(n^2)
+Avg case O(nlogn)
+Stable
+
+int partition(int arr[],int low,int high)
+{
+   int pivot=arr[high];
+   int i=(low-1);
+   for(int j=low;j<=high-1;j++)
+   {
+      if (arr[j] < pivot)
+      {
+         i++;
+         swap(arr[i],arr[j]);
+      }
+   }
+   swap(arr[i+1],arr[high]);
+   return (i+1);
+}
+void quickSort(int arr[],int low,int high)
+{
+   if (low<high)
+   {
+      int pi=partition(arr,low,high);
+      quickSort(arr,low,pi-1);
+      quickSort(arr,pi+1,high);
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+CYCLE SORT :-
+
+O(n^2) time
+In-place & Not stable
+Minimum memory writes
+Useful to solve questions like find minimum swaps required to sort an array
+
+void cycle_sort(int a[],int n)
+{
+   for(int i=0;i<n-1;i++)
+   {
+      int temp=a[i],pos=i;
+      for(int j=i+1;j<n;j++)
+         if(temp>a[j])
+            pos++;
+      swap(temp,a[pos]);
+      while(pos!=i)
+      {
+         pos=i;
+         for(int j=i+1;j<n;j++)
+            if(temp>a[j])
+               pos++;
+         swap(temp,a[pos]);
+      }
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+HEAP SORT :-
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+COUNTING SORT :-
+
+O(n+k) time to sort n elements in range from 0 to k-1
+O(n+k) Aux space
+Stable
+
+void counting_sort(int a[],int n,int k)
+{
+   int count[k]={0};
+   for(int i=0;i<n;i++)
+      count[a[i]]++;
+   for(int i=1;i<n;i++)
+      count[i]=count[i]+count[i-1];
+   int output[n]={0};
+   for(int i=n-1;i>=0;i--)
+   {
+      output[count[a[i]]-1]=a[i];
+      count[a[i]]--;
+   }
+   for(int i=0;i<n;i++)
+      a[i]=output[i];
+   cout<<"";
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+BUCKET SORT :-
+
+Best Case O(n) when data is uniformly distributed
+Worst Case when all data in single bucket
+	O(n^2) with Insertion sort
+	O(nlogn) with other
+
+void bucket_sort(int a[],int n,int k)
+{
+   int m=*max_element(a,a+n);
+   m++;
+   vector<int>bucket[k];
+   for(int i=0;i<n;i++)
+   {
+      int z=(k*a[i])/m;
+      bucket[z].push_back(a[i]);
+   }
+   for(int i=0;i<k;i++)
+      sort(bucket[i].begin(),bucket[i].end());
+   int index=0;
+   for(int i=0;i<k;i++)
+   {
+      for(int j=0;j<bucket[i].size();j++)
+         a[index++]=bucket[i][j];
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+RADIX SORT :-
+
+Linear time over a limit just like counting sort
+Uses counting sort as its subroutine
+Linear time even on range N^2
+Stable Sort
+Method?
+	Re-write number with leading 0s
+	Ex : 3 digit numbers
+	Sort account to starting digit, then middle then most significant
+
+void count_sort(int arr[],int n,int exp)
+{
+   int output[n];
+   int i,count[10]={0};
+   for(i=0;i<n;i++)
+      count[(arr[i]/exp)%10]++;
+   for(i=1;i<10;i++)
+      count[i]+=count[i-1];
+   for(i=n-1;i>=0;i--)
+   {
+      output[count[(arr[i]/exp)%10]-1]=arr[i];
+      count[(arr[i]/exp)%10]--;
+   }
+   for(i=0;i<n;i++)
+      arr[i]=output[i];
+}
+void radix_sort(int arr[], int n)
+{
+   int m=*max_element(arr,arr+n);
+   for(int exp=1;m/exp>0;exp*= 10)
+      count_sort(arr,n,exp);
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
