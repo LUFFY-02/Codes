@@ -1,6 +1,14 @@
 To find max element of array
 	*max_element(a,a+size);
 
+DYNAMIC ARRAYS :
+	int *arr;
+	int n;
+	cin>>n;
+	arr=new int[n];
+This is how we create array first and provide size after.
+
+
 To find min element of array
 	*min_element(a,a+size);
 
@@ -25,6 +33,9 @@ in vector : binary_search(v.begin(),b.end(),value);
 30, 40, 50, 10, 20
 
 	find(arr,arr+n,value);
+
+
+
 
 
 
